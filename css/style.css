@@ -1,0 +1,87 @@
+.trialDiv {
+    /* border: 2px solid gray;*/
+    border: 0px;
+    padding: auto;
+    width: auto;
+    position: relative;
+    top: 50px;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: none;
+    font-size: 13pt;
+}
+
+body {
+    font-family: Arial, Helvetica;
+    margin-top: 50px;
+}
+
+#instructions {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 300px;
+    font-size: 18pt;
+}
+
+#submitButton {
+    display: none;  
+}
+
+
+#startExperiment {
+    color: rgb(200,200,200);
+    text-decoration: none;
+}
+
+#startExperiment:hover{
+    color: white;
+}
+
+#startExperimentButton {
+    width: 200px;
+    text-align: center;
+    border: 4px outset black;
+    background: gray;
+    padding: 5px;
+    margin: 0 auto;
+    font-size: 16pt;
+}
+
+#myCanvas {
+    width: 200px;
+    height: 250px;
+    margin-top: 80px;
+    cursor: default;
+    border: none;
+    outline-width: 2px;
+    outline-color: black;
+}
+
+#picture {
+    width: 40%;
+    height: 40%;
+}
+
+#previousButton {
+    font-size: 12pt;
+}
+
+#nextButton {
+    font-size: 12pt;
+}
+
+#meter{
+  width: 10cm;
+  height: 10cm;
+}
+
+.instr {
+    display: none;
+}
+
+#done {
+  display: none;
+}
