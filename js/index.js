@@ -1,24 +1,82 @@
-var imgSrc = 'im/';
-var imgList = ['acousticguitar.jpg','apple.jpg','arm.jpg','asianelephant.jpg','axe.jpg','balloon.jpg','banana.jpg','bed.jpg','belt.jpg','bicycle.jpg','birdnest.jpg','birthdaycandle.jpg','blackbear.jpg','book.jpg','bowl.jpg','boxingglove.jpg','broom.jpg','bus.jpg','butterfly.jpg','button.jpg','cabbage.jpg','cane.jpg','car.jpg','cauliflower.jpg','chain.jpg','chair.jpg','chilipeppers.jpg','clock.jpg','comb.jpg','computermouse.jpg','corn.jpg','couch.jpg','cow.jpg','crab.jpg','crocodile.jpg','cucumber.jpg','desk.jpg','dice.jpg','dragonfly.jpg','duck.jpg','ear.jpg','egg.jpg','elbow.jpg','envelope.jpg','eraser.jpg','eye.jpg','feather.jpg','flashlight.jpg','flipflop.jpg','foot.jpg','fork.jpg','freighttruck.jpg','fridge.jpg','fryingpan.jpg','garbagebin.jpg','giftbag.jpg','giraffe.jpg','glasses.jpg','glassmop.jpg','grandpiano.jpg','grape.jpg','greatwhiteshark.jpg','hairband.jpg','hairdryer.jpg','hammer.jpg','hand.jpg','handcuffs.jpg','hanger.jpg','hat.jpg','headphones.jpg','helicopter.jpg','hibiscusflower.jpg','highheelshoe.jpg','honeybee.jpg','horse.jpg','iron.jpg','jackrabbit.jpg','jeans.jpg','kalashnikovrifle.jpg','key.jpg','knee.jpg','knife.jpg','ladle.jpg','ladybug.jpg','laptop.jpg','leaf.jpg','leg.jpg','lighter.jpg','lion.jpg','lip.jpg','lizard.jpg','lock.jpg','magnifyingglass.jpg','mango.jpg','mangosteen.jpg','manshoe.jpg','measuringtape.jpg','microphone.jpg','microwave.jpg','motorcycle.jpg','mouse.jpg','mug.jpg','mushroom.jpg','nail.jpg','nailclipper.jpg','nose.jpg','onion.jpg','orange.jpg','paintbrush.jpg','paintcan.jpg','panda.jpg','papaya.jpg','paperclip.jpg','parkbench.jpg','peacock.jpg','peanut.jpg','pen.jpg','pencil.jpg','pencilsharpener.jpg','pepper.jpg','pictureframe.jpg','pig.jpg','pigeon.jpg','pillow.jpg','pineapple.jpg','pingpongpaddle.jpg','plasticbasket.jpg','plate.jpg','pot.jpg','powerline.jpg','puzzlepiece.jpg','qtip.jpg','rambutan.jpg','razor.jpg','remotecontrol.jpg','rhinoceros.jpg','ribbon.jpg','rice.jpg','ring.jpg','rooster.jpg','rose.jpg','ruler.jpg','safetypin.jpg','saw.jpg','scarf.jpg','scissors.jpg','scorpion.jpg','scotchtape.jpg','screwdriver.jpg','scrubbingbrush.jpg','sheep.jpg','shoppingcart.jpg','shoulder.jpg','shrimp.jpg','siamesecat.jpg','sieve.jpg','soccerball.jpg','sock.jpg','speaker.jpg','sponge.jpg','spoon.jpg','sportshorts.jpg','squid.jpg','squirrel.jpg','stairs.jpg','starfish.jpg','strawberry.jpg','stuffedanimal.jpg','tank.jpg','tennisball.jpg','thaigreencurry.jpg','thaihotandsoursoup.jpg','thainoodlestirfry.jpg','thread.jpg','tie.jpg','tiger.jpg','toaster.jpg','toilet.jpg','toothbrush.jpg','tortoise.jpg','towel.jpg','tree.jpg','tshirt.jpg','tupperware.jpg','tweezers.jpg','umbrella.jpg','watch.jpg','waterbottle.jpg','waterbuffalo.jpg','watermelon.jpg','window.jpg','zebra.jpg','zipper.jpg'];
-Shuffle(imgList)
+var imgSrc = 'allim/';
+var imgList = [];
+var condList = ['n','c'];
+var nFilePerConds = 20;
+var nBlock = 4;
+var nflip = 2*2;
+
+///////////////////////////////////////////////////////////// 
+// สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
+for (iheart = 0; iheart<condList.length; iheart++){
+    imgList[iheart] = [];
+    for (ilr = 0; ilr<2; ilr++){
+        imgList[iheart][ilr] = [];
+        for (iud = 0; iud<2; iud++){
+            imgList[iheart][ilr][iud] = [];
+            for (ifile = 0; ifile<nFilePerConds; ifile++){
+                imgList[iheart][ilr][iud].push(ifile)
+            }
+            Shuffle(imgList[iheart][ilr][iud]) // (ที่ shuffle แล้ว ตรงนี้)
+        }
+    }
+}
+
 var curTrial = 0; 
-var naming = [];
-var similarity = [];
-var nTrials = imgList.length;
+var rt = [];
+var ans = [];
+var ncond = 4;
+var nRepPerBlock = 5;
+
+///////////////////////////////////////////////////////////// 
+// สร้าง var "conds" ซึ่งมี 4 blocks ในแต่ละ block มีความยาวเท่ากับจำนวน trials (40)
+var conds = [];
+for (iblock = 0; iblock <nBlock; iblock++){
+    conds[iblock] = [];
+    icount = 0;
+    for (irep = 0; irep<nRepPerBlock; irep++){
+        for (iheart = 0; iheart<condList.length; iheart++){
+            for (ilr = 0; ilr<2; ilr++){
+                for (iud = 0; iud<2; iud++){
+
+                    conds[iblock][icount] = [condList[iheart],imgList[iheart][ilr][iud][iblock*nRepPerBlock+irep],ilr,iud]
+                    icount++;
+                }
+            }
+        }
+    }
+    Shuffle(conds[iblock]) // shuffle อีก เพื่อความบ้าคลั่ง
+}
+
+/////////////////////////////////////////////////////////////
+// ขอลองแบบนี้ก่อน เหนื่อยแล้ว
+// อย่าลืมมาแก้ให้ run เป็น block ได้นะ
+/////////////////////////////////////////////////////////////
+
+var tootired = [];
+for (iblock=0;iblock<nBlock;iblock++){
+    if (iblock == 0){
+        tootired = conds[iblock];
+    }
+    else{
+        tootired = tootired.concat(conds[iblock])
+    }
+    
+}
+var nTrials = tootired.length;
+
 var trialStruct = [];
 var st = null;
 
-// Settings
 
-for (i = 0; i < nTrials; i++){
-    similarity[i] = 99;
-    naming[i] = "";
+//////////////////////////////////////////////////////////////
+// สร้าง array เปล่า ไว้เก็บข้อมูล 
+//////////////////////////////////////////////////////////////
+for (i = 0; i < tootired.length; i++){
+    rt[i] = 99;
+    ans[i] = "99";
 }
 
-for (i = 1; i < 6; i++){
-var eachInputSimilarity = "inputSimilarity" + i;
-var eachSimilarity = document.getElementById(eachInputSimilarity);
-}
+//////////////////////////////////////////////////////////////
 
 function shuffle(array){
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -38,12 +96,6 @@ function shuffle(array){
     return array;
 }
 
-function makeBackground(bgcolor){
-// Fill background
-    makeRectangle('bg', centerX, centerX, 400, 400, false, bgcolor, bgcolor);
-    
-}
-
 function startTime(){
     var d = new Date();
     st = d.getTime();
@@ -54,23 +106,67 @@ function endTime(){
     timeDif = d.getTime() - st;
     return timeDif;
 }
+//////////////////////////////////////////////////////////////
+
+
+document.addEventListener('keydown', pressKeyboard);
+    
+
+function initPicture(){
+    var picture = document.getElementById('picture');
+    picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    initPicture();
+    $('#startExperiment').click(Prinn);
+})
+
+function Prinn(){
+    $('#instructions').hide();
+    $('#startExperimentButton').hide();
+    
+    var d0 = new Date();
+    startTrialTime = d0.getTime();
+
+    $('#frame').show();
+  }
+
+
+function pressKeyboard(event){
+    if (event.key === "x" || event.key === "z"){
+        console.log('you have pressed ' + event.key)
+        var d1 = new Date();
+        endTrialTime = d1.getTime();
+        ans[curTrial] = event.key;
+        rt[curTrial] = endTrialTime-startTrialTime;
+        trialIsOver();
+    } 
+}
 
 function trialIsOver() {
     var curTrialStruct = {};
-    curTrialStruct.image = imgList[curTrial];
-    curTrialStruct.naming = naming[curTrial]
-    curTrialStruct.similarity = similarity[curTrial]
+    curTrialStruct.heart = tootired[curTrial][0];
+    curTrialStruct.imageId = tootired[curTrial][1];
+    curTrialStruct.fliplr = tootired[curTrial][2];
+    curTrialStruct.flipud = tootired[curTrial][3];
+    curTrialStruct.ans = ans[curTrial];
+    curTrialStruct.rt = rt[curTrial];
     trialStruct.push(curTrialStruct);
+    
     curTrial = curTrial + 1 ; 
 
     if (curTrial >= nTrials){
         Done();
     } else {
-        startTrialTime = new Date();
+        var d0 = new Date();
+        startTrialTime = d0.getTime();
         var picture = document.getElementById('picture');
-        picture.src = imgSrc + imgList[curTrial];
+        picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
     }
 }
+
+//////////////////////////////////////////////////////////////
 
 function Done() {
     $('#frame1').hide();
@@ -79,7 +175,7 @@ function Done() {
     var dataToServer = {};
     dataToServer.id = getParameterByName("subjectId"); /* getParameterByName("code") */
     dataToServer.experimenter = 'Chaipat';
-    dataToServer.experimentName = 'Naming';
+    dataToServer.experimentName = 'cxr';
     dataToServer.curData = JSON.stringify(trialStruct);
     $.post("https://psyc241.ucsd.edu/Turk/save.php", dataToServer, AfterSuccessDataSaving).fail(AfterFailedSaving);
 }
@@ -94,11 +190,9 @@ function AfterSuccessDataSaving() {
 
 function AfterFailedSaving() {
     console.log("oops, failed to save");
-
-// window.location = "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=1267&credit_token=805f6634de5a46b3aecffe2818d8d90c&survey_code=" + getParameterByName("code");  
-// $('#submitButton').show();
-$('#done').html("All done, thanks! Please refresh the screen.");
-
+    // window.location = "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=1267&credit_token=805f6634de5a46b3aecffe2818d8d90c&survey_code=" + getParameterByName("code");  
+    // $('#submitButton').show();
+    $('#done').html("All done, thanks! Please refresh the screen.");
 }
 
 function getParameterByName(name, url) {
@@ -111,80 +205,6 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function checkNaming(){
-    var eachInputNaming = document.getElementById("inputNaming").value;
-    console.log(eachInputNaming);
-    naming[curTrial] = eachInputNaming;
-    // document.getElementById("inputNaming").value = "";
-} 
 
-function checkSimilarity(){
-    for (i = 1; i < 6; i++){
-        var eachInputSimilarity = "inputSimilarity" + i;
-        var eachSimilarity = document.getElementById(eachInputSimilarity);
-
-        if (eachSimilarity.checked){
-            similarity[curTrial] = i;
-            eachSimilarity.checked = false;
-        }
-    }
-} 
-
-function TOK(){
-    $('#instructions').hide();
-    $('#startExperimentButton').hide();
-    $('#frame1').show();
-    console.log(curTrial);
-  }
-
-function previous(){
-    if (curTrial != 0){
-        curTrial = curTrial - 1;
-        var picture = document.getElementById('picture');
-        picture.src = imgSrc + imgList[curTrial];
-        console.log(curTrial);
-    }  
-}
-
-function beforeNext(){
-        checkSimilarity();
-        checkNaming();
-
-    if (similarity[curTrial] < 99 && naming[curTrial] != ""){
-        next();
-    }     
-    
-}
-
-function pressKeyboard(event){
-    if (event.key === "Alt"){
-        beforeNext();
-    } else if (event.key === 'Escape') {
-        previous();
-    }
-}
-
-document.addEventListener('keydown', pressKeyboard);
-    
-function next(){
-    var eachInputNaming = document.getElementById("inputNaming").value;
-    naming[curTrial] = eachInputNaming;
-    document.getElementById("inputNaming").value = "";
-
-    if (curTrial < imgList.length){
-        trialIsOver();
-        console.log(curTrial);
-    } 
-}
-
-function initPicture(){
-    var picture = document.getElementById('picture');
-    picture.src = imgSrc + imgList[curTrial];
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    initPicture();
-    $('#startExperiment').click(TOK);
-})
 
 // =======================================================
