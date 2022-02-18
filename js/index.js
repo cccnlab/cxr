@@ -4,6 +4,7 @@ var condList = ['n','c'];
 var nFilePerConds = 20;
 var nBlock = 4;
 var nflip = 2*2;
+var usableKeys = ['z','x'];
 
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
@@ -134,7 +135,7 @@ function Prinn(){
 
 
 function pressKeyboard(event){
-    if (event.key === "x" || event.key === "z"){
+    if (event.key === usableKeys[0] || event.key === usableKeys[1]){
         console.log('you have pressed ' + event.key)
         var d1 = new Date();
         endTrialTime = d1.getTime();
