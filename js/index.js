@@ -16,6 +16,9 @@ var stimDur = 300;
 var preStim = 1000; 
 var canResp = 1;
 var breakEvery = 40;
+var thisText = '';
+var txtSize = NaN;
+var fontstyle = "32px Arial";
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
 for (iheart = 0; iheart<condList.length; iheart++){
@@ -161,9 +164,6 @@ document.addEventListener('swiped', swipeOnPhone);
 
 function initPicture(){
     $('#break').hide();
-
-    erase(ctx);
-    clear();
     setTimeout(function(){
         img.onload=start;
         img.src=imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
@@ -186,9 +186,14 @@ function Prinn(){
 function pressKeyboard(event){
     if (canResp && (event.key === usableKeys[0] || event.key === usableKeys[1])){
         endTrialTime = new Date().getTime(); 
-        console.log('you have pressed ' + event.key)
         ans[curTrial] = event.key;
         rt[curTrial] = endTrialTime-startTrialTime;
+        if (event.key === usableKeys[0]){
+            thisText = 'normal heart';
+        } else {
+            thisText = 'cardiomegaly';
+        }
+        txtSize = ctx.measureText(thisText)
         canResp = 0;
         trialIsOver();
     } 
@@ -197,9 +202,14 @@ function pressKeyboard(event){
 function swipeOnPhone(event) {
     if (canResp && (event.detail.dir === swipeDir[0] || event.detail.dir === swipeDir[1])){
         endTrialTime = new Date().getTime(); 
-        console.log('you have swiped ' + event.detail.dir)
         ans[curTrial] = event.detail.dir;
         rt[curTrial] = endTrialTime-startTrialTime;
+        if (event.detail.dir === swipeDir[0]){
+            thisText = 'normal heart';
+        } else {
+            thisText = 'cardiomegaly';
+        }
+        txtSize = ctx.measureText(thisText)
         canResp = 0;
         trialIsOver();
     } 
@@ -218,6 +228,12 @@ function trialIsOver() {
     curTrial = curTrial + 1 ; 
 
     clearTimeout(removeIm); 
+    erase(ctx);
+    clear();
+    ctx.canvas.width = $('#myCanvas').width();
+    ctx.canvas.height = $('#myCanvas').height();
+    makeText('t',($('#myCanvas').width()/2) - txtSize.width,$('#myCanvas').height()/2,thisText,"Black",fontstyle)
+    drawObjects(ctx,objects);
 
     if (curTrial >= nTrials){
         Done();
