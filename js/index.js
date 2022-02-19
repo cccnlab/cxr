@@ -156,8 +156,8 @@ function pressKeyboard(event){
 }
 
 function swipeOnPhone(event) {
-    console.log(event.target); // the element that was swiped
-    console.log(event.detail.dir); // swiped direction
+    $('#startExperimentButton').show();
+    document.getElementById("startExperiment").innerHTML = event.detail.dir;
     if (canResp && (event.detail.dir === usableKeys[0] || event.detail.dir === usableKeys[1])){
         endTrialTime = new Date().getTime(); 
         console.log('you have pressed ' + event.key)
@@ -167,7 +167,7 @@ function swipeOnPhone(event) {
         canResp = 0;
         trialIsOver();
     } 
-    
+
 }
 
 function trialIsOver() {
