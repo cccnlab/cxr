@@ -26,6 +26,15 @@ body {
     font-size: 18pt;
 }
 
+#break {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 300px;
+    font-size: 18pt;
+    display:none;
+}
+
 #submitButton {
     display: none;  
 }

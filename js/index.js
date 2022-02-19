@@ -5,6 +5,10 @@ var nFilePerConds = 20;
 var nBlock = 4;
 var nflip = 2*2;
 var usableKeys = ['z','x'];
+var stimDur = 1000;
+var preStim = 1000; 
+var canResp = 1;
+var breakEvery = 20;
 
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
@@ -110,18 +114,22 @@ function endTime(){
 //////////////////////////////////////////////////////////////
 
 document.addEventListener('keydown', pressKeyboard);
+document.addEventListener('swiped', swipeOnPhone);
 
 function initPicture(){
+    $('#break').hide();
+
     var picture = document.getElementById('picture');
     picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
     // rotate pics
     rotateString = "rotateX(" + tootired[curTrial][3]*180 + "deg) rotateY(" + tootired[curTrial][2]*180 + "deg)";
     document.querySelector("#picture").style.transform = rotateString;
-
+    $('#frame').hide(); // first, hide it
+    presentIm = setTimeout(function(){$('#frame').show();startTrialTime = new Date().getTime();canResp = 1; console.log(tootired[curTrial])},preStim) // now, wait for a little (preStim) and present the image. Reset the clock and also allow the response to happen.
+    removeIm = setTimeout(function(){$('#frame').hide();},preStim+stimDur) // then, after stimDur, hide it again
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    initPicture();
     $('#startExperiment').click(Prinn);
 })
 
@@ -129,25 +137,37 @@ document.addEventListener("DOMContentLoaded", function () {
 function Prinn(){
     $('#instructions').hide();
     $('#startExperimentButton').hide();
-    
-    var d0 = new Date();
-    startTrialTime = d0.getTime();
-
-    $('#frame').show();
-
+    document.getElementById("startExperiment").innerHTML = "พร้อมจะไปต่อแล้วล่ะ";
+    initPicture();
+    // removeIm = setTimeout(function(){$('#frame').hide();},stimDur)
   }
 
 
 function pressKeyboard(event){
-    if (event.key === usableKeys[0] || event.key === usableKeys[1]){
+    if (canResp && (event.key === usableKeys[0] || event.key === usableKeys[1])){
+        endTrialTime = new Date().getTime(); 
         console.log('you have pressed ' + event.key)
-        event.preventDefault();
-        var d1 = new Date();
-        endTrialTime = d1.getTime();
         ans[curTrial] = event.key;
         rt[curTrial] = endTrialTime-startTrialTime;
+        haswaited = endTrialTime;
+        canResp = 0;
         trialIsOver();
     } 
+}
+
+function swipeOnPhone(event) {
+    console.log(event.target); // the element that was swiped
+    console.log(event.detail.dir); // swiped direction
+    if (canResp && (event.detail.dir === usableKeys[0] || event.detail.dir === usableKeys[1])){
+        endTrialTime = new Date().getTime(); 
+        console.log('you have pressed ' + event.key)
+        ans[curTrial] = event.key;
+        rt[curTrial] = endTrialTime-startTrialTime;
+        haswaited = endTrialTime;
+        canResp = 0;
+        trialIsOver();
+    } 
+    
 }
 
 function trialIsOver() {
@@ -161,12 +181,17 @@ function trialIsOver() {
     trialStruct.push(curTrialStruct);
     
     curTrial = curTrial + 1 ; 
+    clearTimeout(removeIm); 
 
     if (curTrial >= nTrials){
         Done();
+    }
+
+    if(curTrial % breakEvery == 0){
+        $('#frame').hide();
+        $('#break').show();
+        $('#startExperimentButton').show();
     } else {
-        var d0 = new Date();
-        startTrialTime = d0.getTime();
         initPicture()
     }
 }
