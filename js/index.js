@@ -5,6 +5,7 @@ var nFilePerConds = 20;
 var nBlock = 4;
 var nflip = 2*2;
 var usableKeys = ['z','x'];
+var swipeDir = ['left','right'];
 var stimDur = 1000;
 var preStim = 1000; 
 var canResp = 1;
@@ -156,12 +157,10 @@ function pressKeyboard(event){
 }
 
 function swipeOnPhone(event) {
-    $('#startExperimentButton').show();
-    document.getElementById("startExperiment").innerHTML = event.detail.dir;
-    if (canResp && (event.detail.dir === usableKeys[0] || event.detail.dir === usableKeys[1])){
+    if (canResp && (event.detail.dir === swipeDir[0] || event.detail.dir === swipeDir[1])){
         endTrialTime = new Date().getTime(); 
-        console.log('you have pressed ' + event.key)
-        ans[curTrial] = event.key;
+        console.log('you have swiped ' + event.detail.dir)
+        ans[curTrial] = event.detail.dir;
         rt[curTrial] = endTrialTime-startTrialTime;
         haswaited = endTrialTime;
         canResp = 0;
