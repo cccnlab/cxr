@@ -150,7 +150,6 @@ function pressKeyboard(event){
         console.log('you have pressed ' + event.key)
         ans[curTrial] = event.key;
         rt[curTrial] = endTrialTime-startTrialTime;
-        haswaited = endTrialTime;
         canResp = 0;
         trialIsOver();
     } 
@@ -162,7 +161,6 @@ function swipeOnPhone(event) {
         console.log('you have swiped ' + event.detail.dir)
         ans[curTrial] = event.detail.dir;
         rt[curTrial] = endTrialTime-startTrialTime;
-        haswaited = endTrialTime;
         canResp = 0;
         trialIsOver();
     } 
@@ -178,15 +176,13 @@ function trialIsOver() {
     curTrialStruct.ans = ans[curTrial];
     curTrialStruct.rt = rt[curTrial];
     trialStruct.push(curTrialStruct);
-    
     curTrial = curTrial + 1 ; 
+
     clearTimeout(removeIm); 
 
     if (curTrial >= nTrials){
         Done();
-    }
-
-    if(curTrial % breakEvery == 0){
+    }else if(curTrial % breakEvery == 0){
         $('#frame').hide();
         $('#break').show();
         $('#startExperimentButton').show();
@@ -198,7 +194,7 @@ function trialIsOver() {
 //////////////////////////////////////////////////////////////
 
 function Done() {
-    $('#frame1').hide();
+    $('#frame').hide();
     $("#done").show();
 
     var dataToServer = {};
