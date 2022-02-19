@@ -16,8 +16,6 @@ var stimDur = 300;
 var preStim = 1000; 
 var canResp = 1;
 var breakEvery = 40;
-var w = 100;
-var h = 100;
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
 for (iheart = 0; iheart<condList.length; iheart++){
