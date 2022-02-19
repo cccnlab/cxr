@@ -60,9 +60,9 @@ body {
 }
 
 #myCanvas {
-    width: 200px;
-    height: 250px;
-    margin-top: 80px;
+    width: 800px;
+    height: 800px;
+    /*margin-top: 80px;*/
     cursor: default;
     border: none;
     outline-width: 2px;

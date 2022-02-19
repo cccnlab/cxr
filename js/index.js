@@ -1,5 +1,11 @@
 var imgSrc = 'allim/';
 var imgList = [];
+var canvas=document.getElementById("myCanvas");
+var ctx=canvas.getContext("2d");
+var cw=canvas.width;
+var ch=canvas.height;
+var img=new Image(); 
+
 var condList = ['n','c'];
 var nFilePerConds = 20;
 var nBlock = 4;
@@ -10,7 +16,8 @@ var stimDur = 300;
 var preStim = 1000; 
 var canResp = 1;
 var breakEvery = 40;
-
+var w = 100;
+var h = 100;
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
 for (iheart = 0; iheart<condList.length; iheart++){
@@ -112,6 +119,36 @@ function endTime(){
     timeDif = d.getTime() - st;
     return timeDif;
 }
+
+function scaleIt(source,scaleFactor){
+  var c=document.createElement('canvas');
+  var ctx=c.getContext('2d');
+  var w=source.width*scaleFactor;
+  var h=source.height*scaleFactor;
+  c.width=w;
+  c.height=h;
+  ctx.drawImage(source,0,0,w,h);
+  return(c);
+}
+
+function start(){
+  var c1=scaleIt(img,1);
+  canvas.width=c1.width/2;
+  canvas.height=c1.height/2;
+  ctx.translate(canvas.width * tootired[curTrial][2], canvas.height * tootired[curTrial][3]);
+  ctx.scale(1-tootired[curTrial][2]*2, 1-tootired[curTrial][3]*2);
+  ctx.drawImage(c1,0,0,canvas.width,canvas.height);
+
+    // note : I got this from the awesome internet 
+    // canvas = document.createElement('canvas');
+    // canvasContext = canvas.getContext('2d');
+
+    // canvasContext.translate(width, 0);
+    // canvasContext.scale(-1, 1);
+    // canvasContext.drawImage(image, 0, 0);
+}
+
+
 //////////////////////////////////////////////////////////////
 
 document.addEventListener('keydown', pressKeyboard);
@@ -120,14 +157,20 @@ document.addEventListener('keydown', pressKeyboard);
 function initPicture(){
     $('#break').hide();
 
-    var picture = document.getElementById('picture');
-    picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
-    // rotate pics
-    rotateString = "rotateX(" + tootired[curTrial][3]*180 + "deg) rotateY(" + tootired[curTrial][2]*180 + "deg)";
-    document.querySelector("#picture").style.transform = rotateString;
-    $('#frame').hide(); // first, hide it
-    presentIm = setTimeout(function(){$('#frame').show();startTrialTime = new Date().getTime();canResp = 1; console.log(tootired[curTrial])},preStim) // now, wait for a little (preStim) and present the image. Reset the clock and also allow the response to happen.
-    removeIm = setTimeout(function(){$('#frame').hide();},preStim+stimDur) // then, after stimDur, hide it again
+    erase(ctx);
+    clear();
+    setTimeout(function(){
+        img.onload=start;
+        img.src=imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
+        startTrialTime = new Date().getTime();
+        canResp = 1; 
+        console.log(tootired[curTrial])
+    },preStim)
+
+    removeIm = setTimeout(function(){
+        erase(ctx);
+        clear();
+    },preStim+stimDur)
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -140,7 +183,6 @@ function Prinn(){
     $('#startExperimentButton').hide();
     document.getElementById("startExperiment").innerHTML = "พร้อมจะไปต่อแล้วล่ะ";
     initPicture();
-    // removeIm = setTimeout(function(){$('#frame').hide();},stimDur)
   }
 
 
