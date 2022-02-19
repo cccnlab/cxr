@@ -109,19 +109,22 @@ function endTime(){
 }
 //////////////////////////////////////////////////////////////
 
-
 document.addEventListener('keydown', pressKeyboard);
-    
 
 function initPicture(){
     var picture = document.getElementById('picture');
     picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
+    // rotate pics
+    rotateString = "rotateX(" + tootired[curTrial][3]*180 + "deg) rotateY(" + tootired[curTrial][2]*180 + "deg)";
+    document.querySelector("#picture").style.transform = rotateString;
+
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     initPicture();
     $('#startExperiment').click(Prinn);
 })
+
 
 function Prinn(){
     $('#instructions').hide();
@@ -131,12 +134,14 @@ function Prinn(){
     startTrialTime = d0.getTime();
 
     $('#frame').show();
+
   }
 
 
 function pressKeyboard(event){
     if (event.key === usableKeys[0] || event.key === usableKeys[1]){
         console.log('you have pressed ' + event.key)
+        event.preventDefault();
         var d1 = new Date();
         endTrialTime = d1.getTime();
         ans[curTrial] = event.key;
@@ -162,8 +167,7 @@ function trialIsOver() {
     } else {
         var d0 = new Date();
         startTrialTime = d0.getTime();
-        var picture = document.getElementById('picture');
-        picture.src = imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
+        initPicture()
     }
 }
 
