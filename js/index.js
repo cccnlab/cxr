@@ -6,10 +6,10 @@ var nBlock = 4;
 var nflip = 2*2;
 var usableKeys = ['z','x'];
 var swipeDir = ['left','right'];
-var stimDur = 1000;
+var stimDur = 300;
 var preStim = 1000; 
 var canResp = 1;
-var breakEvery = 20;
+var breakEvery = 40;
 
 ///////////////////////////////////////////////////////////// 
 // สร้างกล่อง 2x2x2 ที่มีไพ่ 20 ใบ (ที่ shuffle แล้ว)
@@ -115,7 +115,7 @@ function endTime(){
 //////////////////////////////////////////////////////////////
 
 document.addEventListener('keydown', pressKeyboard);
-document.addEventListener('swiped', swipeOnPhone);
+// document.addEventListener('swiped', swipeOnPhone);
 
 function initPicture(){
     $('#break').hide();
