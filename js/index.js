@@ -136,7 +136,9 @@ function start(){
   ctx.translate(canvas.width * tootired[curTrial][2], canvas.height * tootired[curTrial][3]);
   ctx.scale(1-tootired[curTrial][2]*2, 1-tootired[curTrial][3]*2);
   ctx.drawImage(c1,0,0,canvas.width,canvas.height);
-
+  startTrialTime = new Date().getTime();
+  canResp = 1; 
+  console.log(tootired[curTrial])
   removeIm = setTimeout(function(){
         erase(ctx);
         clear();
@@ -165,9 +167,6 @@ function initPicture(){
     setTimeout(function(){
         img.onload=start;
         img.src=imgSrc + tootired[curTrial][0]+tootired[curTrial][1]+'.png';
-        startTrialTime = new Date().getTime();
-        canResp = 1; 
-        console.log(tootired[curTrial])
     },preStim)
 }
 
