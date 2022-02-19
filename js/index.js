@@ -137,6 +137,11 @@ function start(){
   ctx.scale(1-tootired[curTrial][2]*2, 1-tootired[curTrial][3]*2);
   ctx.drawImage(c1,0,0,canvas.width,canvas.height);
 
+  removeIm = setTimeout(function(){
+        erase(ctx);
+        clear();
+    },stimDur)
+
     // note : I got this from the awesome internet 
     // canvas = document.createElement('canvas');
     // canvasContext = canvas.getContext('2d');
@@ -164,11 +169,6 @@ function initPicture(){
         canResp = 1; 
         console.log(tootired[curTrial])
     },preStim)
-
-    removeIm = setTimeout(function(){
-        erase(ctx);
-        clear();
-    },preStim+stimDur)
 }
 
 document.addEventListener("DOMContentLoaded", function () {
