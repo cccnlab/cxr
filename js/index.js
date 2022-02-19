@@ -150,7 +150,7 @@ function start(){
 //////////////////////////////////////////////////////////////
 
 document.addEventListener('keydown', pressKeyboard);
-// document.addEventListener('swiped', swipeOnPhone);
+document.addEventListener('swiped', swipeOnPhone);
 
 function initPicture(){
     $('#break').hide();
