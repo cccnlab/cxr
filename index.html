@@ -1,6 +1,6 @@
 <!DOCTYPE html>
   <head>
-    <title>Dynamic Naming</title>
+    <title>CXR Reading</title>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src = "https://timbrady.org/turk/TimTurkTools.js"></script>
     <script src = "js/vismemCC.js"></script>
@@ -10,15 +10,19 @@
 
   <body>
     <div id = "instructions">
-      <h2>Dynamic Naming
-        <br>แบบทดสอบวัดความสามารถในการบอกชื่อภาพ</h2>
+      <h2>Can you identify Cardiomegaly?</h2>
         
-        <p>ต่อจากนี้จะมีรูปภาพต่าง ๆ ปรากฏขึ้นมา 
-        <br>ให้ท่านบอก<b><i>ชื่อของภาพ</i></b> และบอก<b><i>ระดับความคุ้นเคย</i></b> ของท่านที่มีต่อภาพนั้น ๆ</p>
+        <p>แบบทดสอบนี้ประกอบด้วยภาพ Chest X-rays จำนวนทั้งสิ้น 160 ภาพ 
+          <br>โดยจะมีทั้งภาพปกติ ภาพที่กลับซ้าย-ขวา และภาพที่กลับบน-ล่าง</p>
         
-        <p>ขอให้ท่านสำรวจสถานที่ที่ท่านอยู่ว่ามีสิ่งที่จะรบกวนสมาธิของท่านหรือไม่
-          <br>หากท่านอยู่ในสถานที่ที่พร้อมแล้ว
-          <br>กดปุ่ม <b>เริ่ม</b> เพื่อเข้าสู่การทดสอบ</p>
+        <p>ให้ท่านพิจารณาภาพที่ปรากฎขึ้น
+          <br>และกด<b> "x"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Normal heart size"</b>
+          <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี <b> "Cardiomegaly"</b></p>
+
+        <p>เมื่อท่านกด x หรือ z แล้ว ท่านจะไปสู่ข้อต่อไปทันที
+          <br>(ท่านจะสามารถหยุดพักได้เมื่อจบข้อ 40, 80, และ 120)</p>
+          
+        <p>กดปุ่ม <b>เริ่ม</b> เพื่อเข้าสู่การทดสอบ</p>
     </div>
 
     <div id = 'break'>
@@ -43,7 +47,8 @@
         <div>
           <img id = "picture" src = 'allim/c1.png'>
         </div>
-        <br> การบ้านวันนี้
+        <br>กด<b> "x"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี<b> "Normal heart size"</b>
+        <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี <b> "Cardiomegaly"</b>
     </div>
 
     <div id = "done" class = "taskDiv">
