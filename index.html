@@ -16,8 +16,8 @@
           <br>โดยจะมีทั้งภาพปกติ ภาพที่กลับซ้าย-ขวา และภาพที่กลับบน-ล่าง</p>
         
         <p>ให้ท่านพิจารณาภาพที่ปรากฎขึ้น
-          <br>และกด<b> "x"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Normal heart size"</b>
-          <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี <b> "Cardiomegaly"</b></p>
+          <br>และกด<b> "X"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Cardiomegaly"</b>
+          <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Normal heart size"</b></p>
 
         <p>เมื่อท่านกด x หรือ z แล้ว ท่านจะไปสู่ข้อต่อไปทันที
           <br>(ท่านจะสามารถหยุดพักได้เมื่อจบข้อ 40, 80, และ 120)</p>
@@ -31,9 +31,12 @@
           <br><br><br><br>
     </div>
 
-    <div id = "startExperimentButton">
-      <input type = "submit" value = "Submit" name = "submitButton" id = "submitButton">
-      <a href = "#" id = "startExperiment">เริ่ม</a>
+    <!-- <div id = "startExperimentButton"> -->
+      <!-- <input type = "submit" value = "Submit" name = "submitButton" id = "submitButton"> -->
+      <!-- <a href = "#" id = "startExperiment">เริ่ม</a> -->
+    <!-- </div> -->
+    <div align="center">
+      <button type = "button" class = "startExperimentButton" id = "startExperiment"><a> เริ่ม </a></button>
     </div>
 
     <div align="center">
@@ -46,9 +49,12 @@
     <div id = 'frame'; class = 'trialDiv'>
         <div>
           <img id = "picture" src = 'allim/c1.png'>
-        </div>
-        <br>กด<b> "x"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี<b> "Normal heart size"</b>
-        <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี <b> "Cardiomegaly"</b>
+        </div >
+    </div>
+
+    <div align = center id = "text"> 
+        <br>กด<b> "X"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี<b> "Cardiomegaly"</b>
+        <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนี้มี<b> "Normal heart size"</b>
     </div>
 
     <div id = "done" class = "taskDiv">

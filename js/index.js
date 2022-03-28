@@ -9,11 +9,12 @@ var img=new Image();
 var condList = ['n','c'];
 var nFilePerConds = 20;
 var nBlock = 4;
+var nloop = 2;
 var nflip = 2*2;
 var usableKeys = ['z','x'];
 var swipeDir = ['left','right'];
-var stimDur = 300;
-var preStim = 1000; 
+var stimDur = 5000;
+var preStim = 500; 
 var canResp = 1;
 var breakEvery = 40;
 var thisText = '';
@@ -44,21 +45,23 @@ var nRepPerBlock = 5;
 ///////////////////////////////////////////////////////////// 
 // สร้าง var "conds" ซึ่งมี 4 blocks ในแต่ละ block มีความยาวเท่ากับจำนวน trials (40)
 var conds = [];
-for (iblock = 0; iblock <nBlock; iblock++){
-    conds[iblock] = [];
-    icount = 0;
-    for (irep = 0; irep<nRepPerBlock; irep++){
-        for (iheart = 0; iheart<condList.length; iheart++){
-            for (ilr = 0; ilr<2; ilr++){
-                for (iud = 0; iud<2; iud++){
+for (iloop = 0; iloop<nloop; iloop++){
+    for (iblock = 0; iblock <nBlock; iblock++){
+        conds[iblock+iloop*nBlock] = [];
+        icount = 0;
+        for (irep = 0; irep<nRepPerBlock; irep++){
+            for (iheart = 0; iheart<condList.length; iheart++){
+                for (ilr = 0; ilr<2; ilr++){
+                    for (iud = 0; iud<2; iud++){
 
-                    conds[iblock][icount] = [condList[iheart],imgList[iheart][ilr][iud][iblock*nRepPerBlock+irep],ilr,iud]
-                    icount++;
+                        conds[iblock+iloop*nBlock][icount] = [condList[iheart],imgList[iheart][ilr][iud][iblock*nRepPerBlock+irep],ilr,iud]
+                        icount++;
+                    }
                 }
             }
         }
+        Shuffle(conds[iblock+iloop*nBlock]) // shuffle อีก เพื่อความบ้าคลั่ง
     }
-    Shuffle(conds[iblock]) // shuffle อีก เพื่อความบ้าคลั่ง
 }
 
 /////////////////////////////////////////////////////////////
@@ -67,12 +70,12 @@ for (iblock = 0; iblock <nBlock; iblock++){
 /////////////////////////////////////////////////////////////
 
 var tootired = [];
-for (iblock=0;iblock<nBlock;iblock++){
-    if (iblock == 0){
-        tootired = conds[iblock];
+for (iblock2=0;iblock2<nBlock*nloop;iblock2++){
+    if (iblock2 == 0){
+        tootired = conds[iblock2];
     }
     else{
-        tootired = tootired.concat(conds[iblock])
+        tootired = tootired.concat(conds[iblock2])
     }
     
 }
@@ -176,8 +179,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function Prinn(){
+    $('#myCanvas').show();
+    $('#text').show();
     $('#instructions').hide();
-    $('#startExperimentButton').hide();
+    $('.startExperimentButton').hide();
     document.getElementById("startExperiment").innerHTML = "พร้อมจะไปต่อแล้วล่ะ";
     initPicture();
   }
@@ -189,9 +194,9 @@ function pressKeyboard(event){
         ans[curTrial] = event.key;
         rt[curTrial] = endTrialTime-startTrialTime;
         if (event.key === usableKeys[0]){
-            thisText = 'normal heart';
+            thisText = '+';
         } else {
-            thisText = 'cardiomegaly';
+            thisText = '+';
         }
         txtSize = ctx.measureText(thisText)
         canResp = 0;
@@ -205,9 +210,9 @@ function swipeOnPhone(event) {
         ans[curTrial] = event.detail.dir;
         rt[curTrial] = endTrialTime-startTrialTime;
         if (event.detail.dir === swipeDir[0]){
-            thisText = 'normal heart';
+            thisText = '+';
         } else {
-            thisText = 'cardiomegaly';
+            thisText = '+';
         }
         txtSize = ctx.measureText(thisText)
         canResp = 0;
@@ -238,9 +243,14 @@ function trialIsOver() {
     if (curTrial >= nTrials){
         Done();
     }else if(curTrial % breakEvery == 0){
+        document.getElementById("break").innerHTML = "<h2>นี่คือ block ที่ " + curTrial/breakEvery + "</h2><br> You did great. take a little break, will ya? <br><br><br><br>";
+
         $('#frame').hide();
+        $('#myCanvas').hide();
+        $('#text').hide();
         $('#break').show();
-        $('#startExperimentButton').show();
+            //$('#startExperimentButton').show();
+        $('#startExperiment').show(); //change id to startExperiment
     } else {
         initPicture()
     }
@@ -250,6 +260,8 @@ function trialIsOver() {
 
 function Done() {
     $('#frame').hide();
+    $('#myCanvas').hide();
+    $('#text').hide();
     $("#done").show();
 
     var dataToServer = {};
