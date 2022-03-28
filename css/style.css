@@ -22,7 +22,7 @@ body {
     width: 80%;
     margin: 0 auto;
     text-align: center;
-    margin-top: 300px;
+    margin-top: 0px;
     font-size: 18pt;
 }
 
@@ -45,11 +45,15 @@ body {
     text-decoration: none;
 }
 
+.startExperiment:hover{
+    color: white;
+}
+
 #startExperiment:hover{
     color: white;
 }
 
-#startExperimentButton {
+.startExperimentButton {
     width: 200px;
     text-align: center;
     border: 4px outset black;
@@ -60,13 +64,19 @@ body {
 }
 
 #myCanvas {
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     /*margin-top: 80px;*/
     cursor: default;
     border: none;
     outline-width: 2px;
     outline-color: black;
+    display: none;
+}
+
+#text {
+    font-size: 16pt;
+    display: none;
 }
 
 #picture {
