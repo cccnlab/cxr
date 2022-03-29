@@ -9,6 +9,66 @@
   </head>
 
   <body>
+    <div id='register' class="container">
+      <div id=titleLanding class="text-center">
+        <h2>PRIN'S TEST</h2>
+      </div>
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="inputId1stName"> ชื่อ </label>
+            <input type="text" id="inputId1stName" name="id1stName" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <label for="inputIdLastName"> นามสกุล </label>
+            <input type="text" id="inputIdLastName" name="idLastName" class="form-control">
+          </div>
+        </div>
+        <p>
+        </p>
+      </form>
+    
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="idGender"> เพศสภาพของท่าน </label>
+            <p id='idGender'>
+              <input id="inputIdGender1" type="radio" name="idGender" value="male" class="form-check-input">
+              <label for="inputIdGender1" class="form-check-label">ชาย</label>&nbsp;&nbsp;&nbsp;
+              <input id="inputIdGender2" type="radio" name="idGender" value="female" class="form-check-input">
+              <label for="inputIdGender2" class="form-check-label">หญิง</label>&nbsp;&nbsp;&nbsp;
+            </p>
+          </div>
+          <div class="col-md-6">
+            <label for="inputIdBirth">วัน-เดือน-ปีเกิด ของท่าน</label>
+            <input type="date" id="inputIdBirth" name="idEBirth" class="form-control" min="2465-12-31" max='2564-12-31'>
+          </div>
+        </div>
+      </form>
+    
+      <form name="select">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="inputIdEd">ระดับการศึกษาสูงสุดของท่าน</label>
+            <select name="ระดับการศึกษาสูงสุด" id='inputIdEd' class="form-control">
+              <option value="0"></option>
+              <option value="1">ไม่ได้เข้าศึกษา (no proper education)</option>
+              <option value="2">ต่ำกว่ามัธยมศึกษาตอนปลาย (middle school diploma)</option>
+              <option value="3">มัธยมศึกษาตอนปลาย (high school diploma)</option>
+              <option value="4">ปวช./ปวส. (vocational/ high vocational certificate)</option>
+              <option value="5">ปริญญาตรี (bachelor's degree)</option>
+              <option value="6">ปริญญาโท (master's degree)</option>
+              <option value="7">ปริญญาเอก (doctoral degree)</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    
+      <div>
+        <button type = "button" class = "startInstructionsButton" id = "startInstructions"><a> ถัดไป </a></button>
+      </div>
+    </div>
+
     <div id = "instructions">
       <h2>Can you identify Cardiomegaly?</h2>
         
