@@ -9,20 +9,75 @@
   </head>
 
   <body>
+
+
+    <!-- ลองใส่ demodata -->
+    <div id='register' class="container">
+      <div id=titleLanding class="text-center">
+        <h1>Can you identify cardiomegaly?</h1>
+        โปรดกรอกข้อมูลด้านล่าง จากนั้นกดปุ่ม <B>ถัดไป</B>
+        <br>
+        <br>
+        <br>
+      </div>
+
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="idGender"> เพศสภาพของท่าน </label>
+            <p id='idGender'>
+              <input id="inputIdGender1" type="radio" name="idGender" value="male" class="form-check-input">
+              <label for="inputIdGender1" class="form-check-label">ชาย</label>&nbsp;&nbsp;&nbsp;
+              <input id="inputIdGender2" type="radio" name="idGender" value="female" class="form-check-input">
+              <label for="inputIdGender2" class="form-check-label">หญิง</label>&nbsp;&nbsp;&nbsp;
+            </p>
+          </div>
+        </div>
+      </form>
+
+      <form name="select">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="inputIdEd">สถานะของท่าน</label>
+            <select name="ระดับการศึกษาสูงสุด" id='inputIdEd' class="form-control">
+              <option value="0"></option>
+              <option value="1">นิสิตแพทย์ชั้นปีที่ 4-5</option>
+              <option value="2">นิสิตแพทย์เวชปฏิบัติ(extern)</option>
+              <option value="3">แพทย์ประจำบ้าน(resident)</option>
+              <option value="4">แพทย์ประจำบ้านต่อยอด(fellow)</option>
+              <option value="5">อาจารย์แพทย์(staff)</option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <div>
+        <br>
+        <br>
+        <br>
+        <button type = "button" class = "startInstructionsButton" id = "startInstructions"><a> ถัดไป </a></button>
+      </div>
+    </div>
+    <!-- จบ demodata ตรงนี้ -->
+
+
     <div id = "instructions">
-      <h2>Can you identify Cardiomegaly?</h2>
+      <h2>Instructions</h2>
         
-        <p>แบบทดสอบนี้ประกอบด้วยภาพ Chest X-rays จำนวนทั้งสิ้น 160 ภาพ 
-          <br>โดยจะมีทั้งภาพปกติ ภาพที่กลับซ้าย-ขวา และภาพที่กลับบน-ล่าง</p>
+        <p>แบบทดสอบนี้ประกอบไปด้วยภาพ Chest X-rays จำนวนทั้งสิ้น 320 ภาพ 
+          <br>โดยจะมีทั้งภาพปกติ ภาพที่กลับซ้าย-ขวา และภาพที่กลับบน-ล่าง
+          <br>ซึ่งจะถูกแบ่งออกเป็น 8 blocks(block ละ 40 ภาพ)</p>
         
         <p>ให้ท่านพิจารณาภาพที่ปรากฎขึ้น
           <br>และกด<b> "X"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Cardiomegaly"</b>
           <br>หรือกด<b> "Z"</b> บนแป้นพิมพ์ หากคิดว่าภาพนั้นมี<b> "Normal heart size"</b></p>
 
-        <p>เมื่อท่านกด x หรือ z แล้ว ท่านจะไปสู่ข้อต่อไปทันที
-          <br>(ท่านจะสามารถหยุดพักได้เมื่อจบข้อ 40, 80, และ 120)</p>
+        <p>เมื่อท่านกด x หรือ z แล้ว ท่านจะไปสู่ภาพต่อไปทันที
+          <br>และจะสามารถหยุดพักได้ทุก ๆ 40 ภาพ(จบ 1 block)</p>
+
+        <p>ขอให้ท่านทำแบบทดสอบนี้ด้วยความตั้งใจ</p>
           
-        <p>กดปุ่ม <b>เริ่ม</b> เพื่อเข้าสู่การทดสอบ</p>
+        <p>หากพร้อมแล้ว กดปุ่ม <b>เริ่ม</b> เพื่อเข้าสู่การทดสอบ</p>
     </div>
 
     <div id = 'break'>

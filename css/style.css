@@ -18,6 +18,39 @@ body {
     margin-top: 50px;
 }
 
+/* ลองใส่ demodata */
+
+.container {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 0px;
+    font-size: 18pt;
+}
+
+.startInstructionsButton {
+    width: 200px;
+    text-align: center;
+    border: 4px outset black;
+    background: gray;
+    padding: 5px;
+    margin: auto;
+    font-size: 16pt;
+    margin-top: 20px;
+}
+
+#startInstructions {
+    color: rgb(200,200,200);
+    text-decoration: none;
+}
+
+#startInstructions:hover {
+    color: white;
+}
+
+
+/* จบ demodata ตรงนี้ */
 #instructions {
     width: 80%;
     margin: 0 auto;

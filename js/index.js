@@ -13,7 +13,7 @@ var nloop = 2;
 var nflip = 2*2;
 var usableKeys = ['z','x'];
 var swipeDir = ['left','right'];
-var stimDur = 5000;
+var stimDur = 3000;
 var preStim = 500; 
 var canResp = 1;
 var breakEvery = 40;
@@ -165,6 +165,22 @@ function start(){
 document.addEventListener('keydown', pressKeyboard);
 document.addEventListener('swiped', swipeOnPhone);
 
+// ลองใส่ demodata
+    
+    $('#instructions').hide();
+    $('.startExperimentButton').hide();
+
+document.addEventListener("DOMContentLoaded", function () {
+    $('#startInstructions').click(goToInstructions);
+})
+
+function goToInstructions(){
+    $('#register').hide();
+    $('#instructions').show();
+    $('.startExperimentButton').show();
+}
+// จบ demodata 
+
 function initPicture(){
     $('#break').hide();
     setTimeout(function(){
@@ -183,7 +199,7 @@ function Prinn(){
     $('#text').show();
     $('#instructions').hide();
     $('.startExperimentButton').hide();
-    document.getElementById("startExperiment").innerHTML = "พร้อมจะไปต่อแล้วล่ะ";
+    document.getElementById("startExperiment").innerHTML = "Continue";
     initPicture();
   }
 
@@ -243,7 +259,7 @@ function trialIsOver() {
     if (curTrial >= nTrials){
         Done();
     }else if(curTrial % breakEvery == 0){
-        document.getElementById("break").innerHTML = "<h2>นี่คือ block ที่ " + curTrial/breakEvery + "</h2><br> You did great. take a little break, will ya? <br><br><br><br>";
+        document.getElementById("break").innerHTML = "<h2>สิ้นสุด block ที่ " + curTrial/breakEvery + "</h2><br> You did great! <br>Take a little break. <br><br><br> หากท่านพร้อมแล้ว กดปุ่ม <b>Continue</b> เพื่อทำแบบทดสอบต่อ<br><br>";
 
         $('#frame').hide();
         $('#myCanvas').hide();
