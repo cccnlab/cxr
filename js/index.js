@@ -42,6 +42,7 @@ var ans = [];
 var ncond = 4;
 var nRepPerBlock = 5;
 
+
 ///////////////////////////////////////////////////////////// 
 // สร้าง var "conds" ซึ่งมี 4 blocks ในแต่ละ block มีความยาวเท่ากับจำนวน trials (40)
 var conds = [];
@@ -166,6 +167,13 @@ document.addEventListener('keydown', pressKeyboard);
 document.addEventListener('swiped', swipeOnPhone);
 
 // ลองใส่ demodata
+
+var genderId;
+var edStatus;
+
+function checkEd() {
+    edStatus = document.getElementById('inputIdEd').value;
+}
     
     $('#instructions').hide();
     $('.startExperimentButton').hide();
@@ -178,7 +186,29 @@ function goToInstructions(){
     $('#register').hide();
     $('#instructions').show();
     $('.startExperimentButton').show();
+    checkIdGender();
+    checkEd();
+    var headerstruct = {};
+    headerstruct.participantGender = genderId;
+    headerstruct.participantEd = edStatus;
+    trialStruct.push(headerstruct);
 }
+
+function checkIdGender(){
+    for (i = 1; i < 3; i++){
+      var eachInputIdGender = "inputIdGender" + i;
+      var eachGender = document.getElementById(eachInputIdGender);
+        if(eachGender.checked){
+            if(i == 1){
+              genderId =  "male";
+            }
+            else{
+              genderId =  "female";
+            }
+        }
+    }
+  }
+
 // จบ demodata 
 
 function initPicture(){
@@ -239,6 +269,8 @@ function swipeOnPhone(event) {
 
 function trialIsOver() {
     var curTrialStruct = {};
+    // curTrialStruct.participantGender = genderId;
+    // curTrialStruct.participantEd = edStatus;
     curTrialStruct.heart = tootired[curTrial][0];
     curTrialStruct.imageId = tootired[curTrial][1];
     curTrialStruct.fliplr = tootired[curTrial][2];
