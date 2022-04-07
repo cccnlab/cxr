@@ -160,7 +160,6 @@ function start(){
     // canvasContext.drawImage(image, 0, 0);
 }
 
-
 //////////////////////////////////////////////////////////////
 
 document.addEventListener('keydown', pressKeyboard);
@@ -324,7 +323,7 @@ function AfterSuccessDataSaving() {
     // After they are done, send them here:
     // window.location = "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=1267&credit_token=805f6634de5a46b3aecffe2818d8d90c&survey_code=" + getParameterByName("code");
     // $('#submitButton').show();
-    $('#done').html("All done, thanks! Please refresh the screen.");
+    $('#done').html("All done, thanks! Please take a screenshot before refresh the screen.");
     console.log("Saved!");
 }
 
@@ -332,7 +331,7 @@ function AfterFailedSaving() {
     console.log("oops, failed to save");
     // window.location = "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=1267&credit_token=805f6634de5a46b3aecffe2818d8d90c&survey_code=" + getParameterByName("code");  
     // $('#submitButton').show();
-    $('#done').html("All done, thanks! Please refresh the screen.");
+    $('#done').html("All done, thanks! Please take a screenshot before refresh the screen.");
 }
 
 function getParameterByName(name, url) {
